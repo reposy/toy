@@ -1,4 +1,4 @@
-package devsy.toy.toy
+package devsy.toy
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
