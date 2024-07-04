@@ -2,90 +2,90 @@ package devsy.toy.learn.assertions.assert_that
 import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 
-class AssertThatInt {
+class AssertThatLong {
     @Test
-    // 두 정수가 동일한지 확인합니다.
-    fun testIntEquality() {
-        val actual = 42
-        val expected = 42
+    // 두 Long 값이 동일한지 확인합니다.
+    fun testLongEquality() {
+        val actual: Long = 42L
+        val expected: Long = 42L
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
-    // 두 정수가 동일하지 않은지 확인합니다.
-    fun testIntInequality() {
-        val actual = 42
-        val expected = 43
+    // 두 Long 값이 동일하지 않은지 확인합니다.
+    fun testLongInequality() {
+        val actual: Long = 42L
+        val expected: Long = 43L
         assertThat(actual).isNotEqualTo(expected)
     }
 
     @Test
-    // 정수가 특정 값보다 큰지 확인합니다.
-    fun testIntGreaterThan() {
-        val actual = 42
-        assertThat(actual).isGreaterThan(41)
+    // Long 값이 특정 값보다 큰지 확인합니다.
+    fun testLongGreaterThan() {
+        val actual: Long = 42L
+        assertThat(actual).isGreaterThan(41L)
     }
 
     @Test
-    // 정수가 특정 값보다 크거나 같은지 확인합니다.
-    fun testIntGreaterThanOrEqualTo() {
-        val actual = 42
-        assertThat(actual).isGreaterThanOrEqualTo(42)
+    // Long 값이 특정 값보다 크거나 같은지 확인합니다.
+    fun testLongGreaterThanOrEqualTo() {
+        val actual: Long = 42L
+        assertThat(actual).isGreaterThanOrEqualTo(42L)
     }
 
     @Test
-    // 정수가 특정 값보다 작은지 확인합니다.
-    fun testIntLessThan() {
-        val actual = 42
-        assertThat(actual).isLessThan(43)
+    // Long 값이 특정 값보다 작은지 확인합니다.
+    fun testLongLessThan() {
+        val actual: Long = 42L
+        assertThat(actual).isLessThan(43L)
     }
 
     @Test
-    // 정수가 특정 값보다 작거나 같은지 확인합니다.
-    fun testIntLessThanOrEqualTo() {
-        val actual = 42
-        assertThat(actual).isLessThanOrEqualTo(42)
+    // Long 값이 특정 값보다 작거나 같은지 확인합니다.
+    fun testLongLessThanOrEqualTo() {
+        val actual: Long = 42L
+        assertThat(actual).isLessThanOrEqualTo(42L)
     }
 
     @Test
-    // 정수가 양수인지 확인합니다.
-    fun testIntPositive() {
-        val actual = 42
+    // Long 값이 양수인지 확인합니다.
+    fun testLongPositive() {
+        val actual: Long = 42L
         assertThat(actual).isPositive()
     }
 
     @Test
-    // 정수가 음수인지 확인합니다.
-    fun testIntNegative() {
-        val actual = -42
+    // Long 값이 음수인지 확인합니다.
+    fun testLongNegative() {
+        val actual: Long = -42L
         assertThat(actual).isNegative()
     }
 
     @Test
-    // 정수가 0인지 확인합니다.
-    fun testIntZero() {
-        val actual = 0
+    // Long 값이 0인지 확인합니다.
+    fun testLongZero() {
+        val actual: Long = 0L
         assertThat(actual).isZero()
     }
 
     @Test
-    // 정수가 특정 범위 내에 있는지 확인합니다.
-    fun testIntBetween() {
-        val actual = 42
-        assertThat(actual).isBetween(40, 45)
+    // Long 값이 특정 범위 내에 있는지 확인합니다.
+    fun testLongBetween() {
+        val actual: Long = 42L
+        assertThat(actual).isBetween(40L, 45L)
     }
 
     @Test
-    // 정수가 특정 값 중 하나인지 확인합니다.
-    fun testIntIn() {
-        val actual = 42
-        assertThat(actual).isIn(41, 42, 43)
+    // Long 값이 특정 값 중 하나인지 확인합니다.
+    fun testLongIn() {
+        val actual: Long = 42L
+        assertThat(actual).isIn(41L, 42L, 43L)
     }
 
     @Test
-    // 정수가 특정 값 중 하나가 아닌지 확인합니다.
-    fun testIntNotIn() {
-        val actual = 42
-        assertThat(actual).isNotIn(43, 44, 45)
+    // Long 값이 특정 값 중 하나가 아닌지 확인합니다.
+    fun testLongNotIn() {
+        val actual: Long = 42L
+        assertThat(actual).isNotIn(43L, 44L, 45L)
     }
 }

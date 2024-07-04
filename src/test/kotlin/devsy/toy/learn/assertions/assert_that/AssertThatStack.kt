@@ -1,82 +1,82 @@
 package devsy.toy.learn.assertions.assert_that
 import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
-class AssertThatChar {
+import java.util.Stack
+class AssertThatStack {
     @Test
-    // Char 값이 특정 값과 동일한지 확인합니다.
-    fun testCharEquality() {
-        val actual: Char = 'A'
-        val expected: Char = 'A'
-        assertThat(actual).isEqualTo(expected)
+    // Stack의 크기를 확인합니다.
+    fun testStackSize() {
+        val stack = Stack<Int>()
+        stack.push(1)
+        stack.push(2)
+        stack.push(3)
+        assertThat(stack).hasSize(3)
     }
 
     @Test
-    // Char 값이 특정 값과 동일하지 않은지 확인합니다.
-    fun testCharInequality() {
-        val actual: Char = 'A'
-        val expected: Char = 'B'
-        assertThat(actual).isNotEqualTo(expected)
+    // Stack의 맨 위 요소를 확인합니다.
+    fun testStackPeek() {
+        val stack = Stack<Int>()
+        stack.push(1)
+        stack.push(2)
+        stack.push(3)
+        assertThat(stack.peek()).isEqualTo(3)
     }
 
     @Test
-    // Char 값이 특정 값보다 큰지 확인합니다.
-    fun testCharGreaterThan() {
-        val actual: Char = 'B'
-        assertThat(actual).isGreaterThan('A')
+    // Stack에서 요소를 꺼내는지 확인합니다.
+    fun testStackPop() {
+        val stack = Stack<Int>()
+        stack.push(1)
+        stack.push(2)
+        stack.push(3)
+        val popped = stack.pop()
+        assertThat(popped).isEqualTo(3)
+        assertThat(stack).hasSize(2)
     }
 
     @Test
-    // Char 값이 특정 값보다 작은지 확인합니다.
-    fun testCharLessThan() {
-        val actual: Char = 'A'
-        assertThat(actual).isLessThan('B')
+    // Stack에 요소를 추가하는지 확인합니다.
+    fun testStackPush() {
+        val stack = Stack<Int>()
+        stack.push(1)
+        assertThat(stack.peek()).isEqualTo(1)
+        stack.push(2)
+        assertThat(stack.peek()).isEqualTo(2)
     }
 
     @Test
-    // Char 값이 특정 값보다 크거나 같은지 확인합니다.
-    fun testCharGreaterThanOrEqualTo() {
-        val actual: Char = 'A'
-        assertThat(actual).isGreaterThanOrEqualTo('A')
+    // Stack이 비어 있는지 확인합니다.
+    fun testStackEmpty() {
+        val stack = Stack<Int>()
+        assertThat(stack).isEmpty()
     }
 
     @Test
-    // Char 값이 특정 값보다 작거나 같은지 확인합니다.
-    fun testCharLessThanOrEqualTo() {
-        val actual: Char = 'A'
-        assertThat(actual).isLessThanOrEqualTo('A')
+    // Stack이 비어 있지 않은지 확인합니다.
+    fun testStackNotEmpty() {
+        val stack = Stack<Int>()
+        stack.push(1)
+        assertThat(stack).isNotEmpty()
     }
 
     @Test
-    // Char 값이 대문자인지 확인합니다.
-    fun testCharUpperCase() {
-        val actual: Char = 'A'
-        assertThat(actual).isUpperCase()
+    // Stack에서 특정 요소를 검색하는지 확인합니다.
+    fun testStackSearch() {
+        val stack = Stack<Int>()
+        stack.push(1)
+        stack.push(2)
+        stack.push(3)
+        assertThat(stack.search(2)).isEqualTo(2) // Stack의 search는 1-based index를 반환합니다.
     }
 
     @Test
-    // Char 값이 소문자인지 확인합니다.
-    fun testCharLowerCase() {
-        val actual: Char = 'a'
-        assertThat(actual).isLowerCase()
-    }
-
-    @Test
-    // Char 값이 숫자인지 확인합니다.
-    fun testCharDigit() {
-        val actual: Char = '1'
-        assertThat(Character.isDigit(actual)).isTrue()
-    }
-
-    @Test
-    // Char 값이 알파벳인지 확인합니다.
-    fun testCharAlphabetic() {
-        val actual: Char = 'A'
-        assertThat(Character.isAlphabetic(actual.code)).isTrue()
-    }
-    @Test
-    // Char 값이 공백인지 확인합니다.
-    fun testCharWhitespace() {
-        val actual: Char = ' '
-        assertThat(Character.isWhitespace(actual)).isTrue()
+    // Stack에서 존재하지 않는 요소를 검색하는지 확인합니다.
+    fun testStackSearchNonExistingElement() {
+        val stack = Stack<Int>()
+        stack.push(1)
+        stack.push(2)
+        stack.push(3)
+        assertThat(stack.search(4)).isEqualTo(-1) // 요소가 존재하지 않으면 -1을 반환합니다.
     }
 }

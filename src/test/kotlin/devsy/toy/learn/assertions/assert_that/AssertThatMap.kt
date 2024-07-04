@@ -2,90 +2,103 @@ package devsy.toy.learn.assertions.assert_that
 import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 
-class AssertThatSet {
+class AssertThatMap {
     @Test
-    // Set의 크기를 확인합니다.
-    fun testSetSize() {
-        val set = setOf(1, 2, 3)
-        assertThat(set).hasSize(3)
+    // Map의 크기를 확인합니다.
+    fun testMapSize() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).hasSize(3)
     }
 
     @Test
-    // Set이 특정 요소를 포함하는지 확인합니다.
-    fun testSetContains() {
-        val set = setOf(1, 2, 3)
-        assertThat(set).contains(2)
+    // Map이 특정 키를 포함하는지 확인합니다.
+    fun testMapContainsKey() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).containsKey("key2")
     }
 
     @Test
-    // Set이 특정 요소를 포함하지 않는지 확인합니다.
-    fun testSetDoesNotContain() {
-        val set = setOf(1, 2, 3)
-        assertThat(set).doesNotContain(4)
+    // Map이 특정 값을 포함하는지 확인합니다.
+    fun testMapContainsValue() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).containsValue(2)
     }
 
     @Test
-    // Set이 비어 있는지 확인합니다.
-    fun testEmptySet() {
-        val set = setOf<Int>()
-        assertThat(set).isEmpty()
+    // Map이 특정 키-값 쌍을 포함하는지 확인합니다.
+    fun testMapContainsEntry() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).containsEntry("key2", 2)
     }
 
     @Test
-    // Set이 비어 있지 않은지 확인합니다.
-    fun testNotEmptySet() {
-        val set = setOf(1, 2, 3)
-        assertThat(set).isNotEmpty()
+    // Map이 특정 키를 포함하지 않는지 확인합니다.
+    fun testMapDoesNotContainKey() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).doesNotContainKey("key4")
     }
 
     @Test
-    // Set이 특정 요소들을 포함하는지 확인합니다.
-    fun testSetContainsAll() {
-        val set = setOf(1, 2, 3, 4, 5)
-        assertThat(set).containsAll(listOf(1, 3, 5))
+    // Map이 특정 값을 포함하지 않는지 확인합니다.
+    fun testMapDoesNotContainValue() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).doesNotContainValue(4)
     }
 
     @Test
-    // Set의 모든 요소가 특정 조건을 만족하는지 확인합니다.
-    fun testSetAllMatch() {
-        val set = setOf(2, 4, 6)
-        assertThat(set).allMatch { it % 2 == 0 }
+    // Map이 특정 키-값 쌍을 포함하지 않는지 확인합니다.
+    fun testMapDoesNotContainEntry() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).doesNotContainEntry("key4", 4)
     }
 
     @Test
-    // Set의 일부 요소가 특정 조건을 만족하는지 확인합니다.
-    fun testSetAnyMatch() {
-        val set = setOf(1, 2, 3)
-        assertThat(set).anyMatch { it > 2 }
+    // Map이 비어 있는지 확인합니다.
+    fun testEmptyMap() {
+        val map = emptyMap<String, Int>()
+        assertThat(map).isEmpty()
     }
 
     @Test
-    // Set의 어떤 요소도 특정 조건을 만족하지 않는지 확인합니다.
-    fun testSetNoneMatch() {
-        val set = setOf(1, 2, 3)
-        assertThat(set).noneMatch { it < 0 }
+    // Map이 비어 있지 않은지 확인합니다.
+    fun testNotEmptyMap() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).isNotEmpty()
     }
 
     @Test
-    // 두 Set이 동일한지 확인합니다.
-    fun testSetEquality() {
-        val set1 = setOf(1, 2, 3)
-        val set2 = setOf(1, 2, 3)
-        assertThat(set1).isEqualTo(set2)
+    // Map이 특정 키-값 쌍을 모두 포함하는지 확인합니다.
+    fun testMapContainsAllEntries() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map).containsAllEntriesOf(mapOf("key1" to 1, "key3" to 3))
     }
 
     @Test
-    // 두 Set이 동일하지 않은지 확인합니다.
-    fun testSetInequality() {
-        val set1 = setOf(1, 2, 3)
-        val set2 = setOf(4, 5, 6)
-        assertThat(set1).isNotEqualTo(set2)
+    // Map의 특정 키가 주어진 조건을 만족하는지 확인합니다.
+    fun testMapKeyMatches() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map.keys).allMatch { it.startsWith("key") }
+    }
+    @Test
+    // Map의 특정 값이 주어진 조건을 만족하는지 확인합니다.
+    fun testMapValueMatches() {
+        val map = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map.values).allMatch { it > 0 }
     }
 
     @Test
-    // Set이 특정 요소들을 포함하는지 순서에 상관없이 확인합니다.
-    fun testSetContainsExactlyInAnyOrder() {
-        val set = setOf(1, 2, 3)
-        assertThat(set).containsExactlyInAnyOrder(3, 2, 1)
+    // 두 Map이 동일한지 확인합니다.
+    fun testMapEquality() {
+        val map1 = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        val map2 = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        assertThat(map1).isEqualTo(map2)
+    }
+
+    @Test
+    // 두 Map이 동일하지 않은지 확인합니다.
+    fun testMapInequality() {
+        val map1 = mapOf("key1" to 1, "key2" to 2, "key3" to 3)
+        val map2 = mapOf("key4" to 4, "key5" to 5, "key6" to 6)
+        assertThat(map1).isNotEqualTo(map2)
     }
 }
