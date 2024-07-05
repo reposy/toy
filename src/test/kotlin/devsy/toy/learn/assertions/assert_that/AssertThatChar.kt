@@ -1,6 +1,7 @@
 package devsy.toy.learn.assertions.assert_that
-import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
 class AssertThatChar {
     @Test
     // Char 값이 특정 값과 동일한지 확인합니다.

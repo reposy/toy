@@ -1,6 +1,8 @@
 package devsy.toy.learn.assertions.assert_that
-import kotlin.test.Test
+
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
 class AssertThatString {
     @Test
     // 두 문자열이 동일한지 확인합니다.
