@@ -20,6 +20,12 @@ repositories {
 
 dependencies {
 
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
+
+    /* 주로 asynchronous request */
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    /* synchronous request */
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.1.2") {
         exclude(group = "commons-fileupload", module = "commons-fileupload")
     }
@@ -35,6 +41,12 @@ kotlin {
         freeCompilerArgs.addAll("-Xjsr305=strict")
     }
 }
+
+tasks.test {
+    useJUnitPlatform()
+    exclude("**/learn/**")
+}
+
 
 tasks.withType<Test> {
     useJUnitPlatform()
