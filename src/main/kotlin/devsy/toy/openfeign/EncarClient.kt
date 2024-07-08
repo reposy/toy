@@ -19,7 +19,7 @@ interface EncarClient {
     ): String
 
     /* 차량 상세 조회 */
-    @GetMapping("/dc/dc_cardetailview.do?")
+    @GetMapping("/dc/dc_cardetailview.do")
     fun getVehicleDetail(
         @RequestHeader("Content-Type") contentType: String = "application/json; charset=utf-8"
     ): String
