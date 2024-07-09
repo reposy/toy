@@ -20,6 +20,10 @@ repositories {
 
 dependencies {
 
+    implementation("org.seleniumhq.selenium:selenium-chrome-driver:4.22.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.22.0")
+
+    implementation("org.jsoup:jsoup:1.17.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
 
     /* 주로 asynchronous request */
