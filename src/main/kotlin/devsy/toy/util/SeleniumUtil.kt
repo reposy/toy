@@ -2,15 +2,8 @@ package devsy.toy.util
 
 import org.jsoup.Jsoup
 import org.openqa.selenium.By
-import org.openqa.selenium.OutputType
-import org.openqa.selenium.TakesScreenshot
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.support.ui.ExpectedConditions
-import org.openqa.selenium.support.ui.WebDriverWait
 import org.springframework.stereotype.Component
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardCopyOption
 import java.time.Duration
 
 @Component
@@ -18,13 +11,22 @@ class SeleniumUtil(
     private val driver: WebDriver
 ) {
     private fun <T> processTemplate(url: String, process:(WebDriver) -> T): T {
+        driver.get(url)
+        return process(driver)
+        /*
         try {
+            driver.manage().timeouts().implicitlyWait((Duration.ofSeconds(10)))
             driver.get(url)
             return process(driver)
         } finally {
             driver.quit()
         }
+        */
     }
+
+    // String HTML 가져오기
+    fun getDriverByUrl(url: String) = processTemplate(url) { driver }
+
     // String HTML 가져오기
     fun getHtmlByUrl(url: String) = processTemplate(url) { driver.pageSource }
 
