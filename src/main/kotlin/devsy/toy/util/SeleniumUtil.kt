@@ -11,9 +11,10 @@ class SeleniumUtil(
     private val driver: WebDriver
 ) {
     private fun <T> processTemplate(url: String, process:(WebDriver) -> T): T {
+        /*
         driver.get(url)
         return process(driver)
-        /*
+        */
         try {
             driver.manage().timeouts().implicitlyWait((Duration.ofSeconds(10)))
             driver.get(url)
@@ -21,7 +22,7 @@ class SeleniumUtil(
         } finally {
             driver.quit()
         }
-        */
+
     }
 
     // String HTML 가져오기
