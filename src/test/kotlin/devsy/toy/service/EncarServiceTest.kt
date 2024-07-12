@@ -3,6 +3,7 @@ package devsy.toy.service
 import devsy.toy.service.dto.Vehicle
 import devsy.toy.util.SeleniumUtil
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -18,61 +19,61 @@ import java.time.Duration
 
 @SpringBootTest
 class EncarServiceTest(
+
     @Autowired val encarService: EncarService,
     @Autowired val seleniumUtil: SeleniumUtil,
 
     @Autowired val driver: WebDriver,
-    //@Autowired val chromeDriverService: ChromeDriverService
+    @Autowired val chromeDriverService: ChromeDriverService
 
 ) {
 
     @Test
-    fun `1=1`() {
-        /*
-        driver.get("http://www.encar.com/dc/dc_carsearchlist.do")
-
-        // link_search 클래스 요소가 로드될 때까지 기다림
-        val linkSearch = WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.presenceOfElementLocated(By.className("link_search")))
-        // 요소를 찾고 클릭
-        linkSearch.click()
-         */
-        val html = """
-            <div class="section list special" data-bind="visible: !!photoSearchResults().length">
-            <h4 class="h_special">사진우대</h4>
-            <div class="part more">
-                <a class="btn_t2" href="javascript:;" onclick="uiLayerB('uiLayerPremiumAD','open','yes');return false;">사진우대
-                    안내</a>
-            </div>
-
-
-            <div class="part list">
-                <ul class="car_list" id="sr_photo" data-role="list_container" data-bind="html: renderPhotoSearchResults()">   <li data-index="0" data-impression="37442211|1290|116321|t1|pic1|8|1" data-impression-index="0"> <a href="/dc/dc_cardetailview.do?pageid=dc_carsearch&amp;listAdvType=pic&amp;carid=37442211&amp;view_type=hs_ad&amp;wtClick_korList=015&amp;advClickPosition=kor_pic_p1_g1" class="newLink _link" target="_blank" data-enlog-dt-eventname="차량상세" data-enlog-dt-hit="list_pic" data-enlog-dt-param="{'filter': '', 'carid': '37442211', 'sorttype': 'ModifiedDate'}"><span class="img"><span class="blt UIimageScrollLoadEnd"><span class="ass">진단</span> <!-- alias=pic_special_Search --><img class="thumb UIimageScrollLoad" src="http://ci.encar.com/carpicture/carpicture03/pic3743/37438834_001.jpg?impolicy=heightRate&amp;rh=138&amp;cw=185&amp;ch=138&amp;cg=Center&amp;wtmk=http://ci.encar.com/wt_mark/w_mark_04.png&amp;wtmkg=SouthEast&amp;wtmkw=70&amp;wtmkh=30&amp;t=20240517091149" alt=""></span>                            <span class="box_advertise"><strong class="desc_advertise">[엔카전담] 7일 책임환불</strong></span>  <span class="mywish"><input type="button" value="찜" class="btwish btn_zim _zzim " data-enlog-dt-param="{'filter': '', 'carid': '37442211'}"><input type="button" value="비교" data-enlog-dt-param="{'filter': '', 'carid': '37442211'}" class="btwish btn_vs _compare "></span></span>  <span class="inf"><span class="cls"><strong>기아</strong> <em>니로</em></span><span class="dtl"><strong> 프레스티지</strong> <em></em></span></span> <span class="detail"><span class="yer">16/10식<em>(17년형)</em></span><span class="km">137,529km</span><span class="ipt">가솔린+전기</span><span class="lo">경기</span></span> <span class="val"><span class="prc"><strong>1,290</strong>만원</span></span> <span class="encarservice"> <span class="svcMark svcMark1">엔카홈서비스</span> <span class="svcMark svcMark2">엔카보증</span> </span> </a> </li>   <li data-index="1" data-impression="37168312|6250|116321|t2|pic2|8|1" data-impression-index="1"> <a href="/dc/dc_cardetailview.do?pageid=dc_carsearch&amp;listAdvType=pic&amp;carid=37168312&amp;view_type=hs_ad&amp;wtClick_korList=015&amp;advClickPosition=kor_pic_p1_g2" class="newLink _link" target="_blank" data-enlog-dt-eventname="차량상세" data-enlog-dt-hit="list_pic" data-enlog-dt-param="{'filter': '', 'carid': '37168312', 'sorttype': 'ModifiedDate'}"><span class="img"><span class="blt UIimageScrollLoadEnd"><span class="ass">진단</span> <!-- alias=pic_special_Search --><img class="thumb UIimageScrollLoad" src="http://ci.encar.com/carpicture/carpicture05/pic3715/37153978_001.jpg?impolicy=heightRate&amp;rh=138&amp;cw=185&amp;ch=138&amp;cg=Center&amp;wtmk=http://ci.encar.com/wt_mark/w_mark_04.png&amp;wtmkg=SouthEast&amp;wtmkw=70&amp;wtmkh=30&amp;t=20240402162100" alt=""></span>                            <span class="box_advertise"><strong class="desc_advertise">[엔카전담] 7일 책임환불</strong></span>  <span class="mywish"><input type="button" value="찜" class="btwish btn_zim _zzim " data-enlog-dt-param="{'filter': '', 'carid': '37168312'}"><input type="button" value="비교" data-enlog-dt-param="{'filter': '', 'carid': '37168312'}" class="btwish btn_vs _compare "></span></span>  <span class="inf"><span class="cls"><strong>제네시스</strong> <em>G80 (RG3)</em></span><span class="dtl"><strong> 가솔린 3.5 터보 AWD</strong> <em></em></span></span> <span class="detail"><span class="yer">22/11식<em>(23년형)</em></span><span class="km">7,753km</span><span class="ipt">가솔린</span><span class="lo">경기</span></span> <span class="val"><span class="prc"><strong>6,250</strong>만원</span></span> <span class="encarservice"> <span class="svcMark svcMark1">엔카홈서비스</span>  </span> </a> </li>   <li data-index="2" data-impression="36996017|3600|116321|t3|pic3|8|1" data-impression-index="2"> <a href="/dc/dc_cardetailview.do?pageid=dc_carsearch&amp;listAdvType=pic&amp;carid=36996017&amp;view_type=hs_ad&amp;wtClick_korList=015&amp;advClickPosition=kor_pic_p1_g3" class="newLink _link" target="_blank" data-enlog-dt-eventname="차량상세" data-enlog-dt-hit="list_pic" data-enlog-dt-param="{'filter': '', 'carid': '36996017', 'sorttype': 'ModifiedDate'}"><span class="img"><span class="blt UIimageScrollLoadEnd"><span class="ass">진단</span> <!-- alias=pic_special_Search --><img class="thumb UIimageScrollLoad" src="http://ci.encar.com/carpicture/carpicture09/pic3699/36993473_001.jpg?impolicy=heightRate&amp;rh=138&amp;cw=185&amp;ch=138&amp;cg=Center&amp;wtmk=http://ci.encar.com/wt_mark/w_mark_04.png&amp;wtmkg=SouthEast&amp;wtmkw=70&amp;wtmkh=30&amp;t=20240307105610" alt=""></span>                            <span class="box_advertise"><strong class="desc_advertise">[엔카전담] 7일 책임환불</strong></span>  <span class="mywish"><input type="button" value="찜" class="btwish btn_zim _zzim " data-enlog-dt-param="{'filter': '', 'carid': '36996017'}"><input type="button" value="비교" data-enlog-dt-param="{'filter': '', 'carid': '36996017'}" class="btwish btn_vs _compare "></span></span>  <span class="inf"><span class="cls"><strong>현대</strong> <em>팰리세이드</em></span><span class="dtl"><strong> 가솔린 3.8 4WD</strong> <em>캘리그래피</em></span></span> <span class="detail"><span class="yer">21/08식<em>(22년형)</em></span><span class="km">30,463km</span><span class="ipt">가솔린</span><span class="lo">경기</span></span> <span class="val"><span class="prc"><strong>3,600</strong>만원</span></span> <span class="encarservice"> <span class="svcMark svcMark1">엔카홈서비스</span>  </span> </a> </li>   <li data-index="3" data-impression="37737650|1099|116321|t4|pic4|8|1" data-impression-index="3"> <a href="/dc/dc_cardetailview.do?pageid=dc_carsearch&amp;listAdvType=pic&amp;carid=37737650&amp;view_type=hs_ad&amp;wtClick_korList=015&amp;advClickPosition=kor_pic_p1_g4" class="newLink _link" target="_blank" data-enlog-dt-eventname="차량상세" data-enlog-dt-hit="list_pic" data-enlog-dt-param="{'filter': '', 'carid': '37737650', 'sorttype': 'ModifiedDate'}"><span class="img"><span class="blt UIimageScrollLoadEnd"><span class="ass">진단</span> <!-- alias=pic_special_Search --><img class="thumb UIimageScrollLoad" src="http://ci.encar.com/carpicture/carpicture03/pic3773/37730387_001.jpg?impolicy=heightRate&amp;rh=138&amp;cw=185&amp;ch=138&amp;cg=Center&amp;wtmk=http://ci.encar.com/wt_mark/w_mark_04.png&amp;wtmkg=SouthEast&amp;wtmkw=70&amp;wtmkh=30&amp;t=20240703091600" alt=""></span>                            <span class="box_advertise"><strong class="desc_advertise">[엔카전담] 7일 책임환불</strong></span>  <span class="mywish"><input type="button" value="찜" class="btwish btn_zim _zzim " data-enlog-dt-param="{'filter': '', 'carid': '37737650'}"><input type="button" value="비교" data-enlog-dt-param="{'filter': '', 'carid': '37737650'}" class="btwish btn_vs _compare "></span></span>  <span class="inf"><span class="cls"><strong>현대</strong> <em>아반떼 AD</em></span><span class="dtl"><strong> 1.6 GDI 스마트</strong> <em></em></span></span> <span class="detail"><span class="yer">17/01식</span><span class="km">78,591km</span><span class="ipt">가솔린</span><span class="lo">경기</span></span> <span class="val"><span class="prc"><strong>1,099</strong>만원</span></span> <span class="encarservice"> <span class="svcMark svcMark1">엔카홈서비스</span>  </span> </a> </li>   <li data-index="4" data-impression="37589904|2460|116321|t5|pic5|8|1" data-impression-index="4"> <a href="/dc/dc_cardetailview.do?pageid=dc_carsearch&amp;listAdvType=pic&amp;carid=37589904&amp;view_type=hs_ad&amp;wtClick_korList=015&amp;advClickPosition=kor_pic_p1_g5" class="newLink _link" target="_blank" data-enlog-dt-eventname="차량상세" data-enlog-dt-hit="list_pic" data-enlog-dt-param="{'filter': '', 'carid': '37589904', 'sorttype': 'ModifiedDate'}"><span class="img"><span class="blt UIimageScrollLoadEnd"><span class="ass">진단</span> <!-- alias=pic_special_Search --><img class="thumb UIimageScrollLoad" src="http://ci.encar.com/carpicture/carpicture08/pic3758/37586704_001.jpg?impolicy=heightRate&amp;rh=138&amp;cw=185&amp;ch=138&amp;cg=Center&amp;wtmk=http://ci.encar.com/wt_mark/w_mark_04.png&amp;wtmkg=SouthEast&amp;wtmkw=70&amp;wtmkh=30&amp;t=20240611095104" alt=""></span>                            <span class="box_advertise"><strong class="desc_advertise">[엔카전담] 7일 책임환불</strong></span>  <span class="mywish"><input type="button" value="찜" class="btwish btn_zim _zzim " data-enlog-dt-param="{'filter': '', 'carid': '37589904'}"><input type="button" value="비교" data-enlog-dt-param="{'filter': '', 'carid': '37589904'}" class="btwish btn_vs _compare "></span></span>  <span class="inf"><span class="cls"><strong>기아</strong> <em>K7 프리미어</em></span><span class="dtl"><strong> 3.0 LPI 프레스티지(렌터카)</strong> <em></em></span></span> <span class="detail"><span class="yer">19/11식<em>(20년형)</em></span><span class="km">55,873km</span><span class="ipt">LPG(일반인 구입)</span><span class="lo">부산</span></span> <span class="val"><span class="prc"><strong>2,460</strong>만원</span></span> <span class="encarservice"> <span class="svcMark svcMark1">엔카홈서비스</span>  </span> </a> </li>   <li data-index="5" data-impression="36337388|840|116321|t6|pic6|8|1" data-impression-index="5"> <a href="/dc/dc_cardetailview.do?pageid=dc_carsearch&amp;listAdvType=pic&amp;carid=36337388&amp;view_type=hs_ad&amp;wtClick_korList=015&amp;advClickPosition=kor_pic_p1_g6" class="newLink _link" target="_blank" data-enlog-dt-eventname="차량상세" data-enlog-dt-hit="list_pic" data-enlog-dt-param="{'filter': '', 'carid': '36337388', 'sorttype': 'ModifiedDate'}"><span class="img"><span class="blt UIimageScrollLoadEnd"><span class="ass">진단</span> <!-- alias=pic_special_Search --><img class="thumb UIimageScrollLoad" src="http://ci.encar.com/carpicture/carpicture02/pic3632/36324633_001.jpg?impolicy=heightRate&amp;rh=138&amp;cw=185&amp;ch=138&amp;cg=Center&amp;wtmk=http://ci.encar.com/wt_mark/w_mark_04.png&amp;wtmkg=SouthEast&amp;wtmkw=70&amp;wtmkh=30&amp;t=20231114101051" alt=""></span>                            <span class="box_advertise"><strong class="desc_advertise">[엔카전담] 7일 책임환불</strong></span>  <span class="mywish"><input type="button" value="찜" class="btwish btn_zim _zzim " data-enlog-dt-param="{'filter': '', 'carid': '36337388'}"><input type="button" value="비교" data-enlog-dt-param="{'filter': '', 'carid': '36337388'}" class="btwish btn_vs _compare "></span></span>  <span class="inf"><span class="cls"><strong>기아</strong> <em>모닝 어반 (JA)</em></span><span class="dtl"><strong> 밴</strong> <em>스페셜</em></span></span> <span class="detail"><span class="yer">21/04식</span><span class="km">48,365km</span><span class="ipt">가솔린</span><span class="lo">경기</span></span> <span class="val"><span class="prc"><strong>840</strong>만원</span></span> <span class="encarservice"> <span class="svcMark svcMark1">엔카홈서비스</span> <span class="svcMark svcMark2">엔카보증</span> </span> </a> </li>   <li data-index="6" data-impression="37428476|760|116321|t7|pic7|8|1" data-impression-index="6"> <a href="/dc/dc_cardetailview.do?pageid=dc_carsearch&amp;listAdvType=pic&amp;carid=37428476&amp;view_type=hs_ad&amp;wtClick_korList=015&amp;advClickPosition=kor_pic_p1_g7" class="newLink _link" target="_blank" data-enlog-dt-eventname="차량상세" data-enlog-dt-hit="list_pic" data-enlog-dt-param="{'filter': '', 'carid': '37428476', 'sorttype': 'ModifiedDate'}"><span class="img"><span class="blt UIimageScrollLoadEnd"><span class="ass">진단</span> <!-- alias=pic_special_Search --><img class="thumb UIimageScrollLoad" src="http://ci.encar.com/carpicture/carpicture02/pic3742/37426654_001.jpg?impolicy=heightRate&amp;rh=138&amp;cw=185&amp;ch=138&amp;cg=Center&amp;wtmk=http://ci.encar.com/wt_mark/w_mark_04.png&amp;wtmkg=SouthEast&amp;wtmkw=70&amp;wtmkh=30&amp;t=20240514165816" alt=""></span>                            <span class="box_advertise"><strong class="desc_advertise">[엔카전담] 7일 책임환불</strong></span>  <span class="mywish"><input type="button" value="찜" class="btwish btn_zim _zzim " data-enlog-dt-param="{'filter': '', 'carid': '37428476'}"><input type="button" value="비교" data-enlog-dt-param="{'filter': '', 'carid': '37428476'}" class="btwish btn_vs _compare "></span></span>  <span class="inf"><span class="cls"><strong>기아</strong> <em>올 뉴 모닝 (JA)</em></span><span class="dtl"><strong> LPi 디럭스</strong> <em></em></span></span> <span class="detail"><span class="yer">18/12식</span><span class="km">58,864km</span><span class="ipt">LPG(일반인 구입)</span><span class="lo">경기</span></span> <span class="val"><span class="prc"><strong>760</strong>만원</span></span> <span class="encarservice"> <span class="svcMark svcMark1">엔카홈서비스</span> <span class="svcMark svcMark2">엔카보증</span> </span> </a> </li>   <li data-index="7" data-impression="37257136|2040|116321|t8|pic8|8|1" data-impression-index="7"> <a href="/dc/dc_cardetailview.do?pageid=dc_carsearch&amp;listAdvType=pic&amp;carid=37257136&amp;view_type=hs_ad&amp;wtClick_korList=015&amp;advClickPosition=kor_pic_p1_g8" class="newLink _link" target="_blank" data-enlog-dt-eventname="차량상세" data-enlog-dt-hit="list_pic" data-enlog-dt-param="{'filter': '', 'carid': '37257136', 'sorttype': 'ModifiedDate'}"><span class="img"><span class="blt UIimageScrollLoadEnd"><span class="ass">진단</span> <!-- alias=pic_special_Search --><img class="thumb UIimageScrollLoad" src="http://ci.encar.com/carpicture/carpicture05/pic3725/37257132_001.jpg?impolicy=heightRate&amp;rh=138&amp;cw=185&amp;ch=138&amp;cg=Center&amp;wtmk=http://ci.encar.com/wt_mark/w_mark_04.png&amp;wtmkg=SouthEast&amp;wtmkw=70&amp;wtmkh=30&amp;t=20240618100421" alt=""></span>                            <span class="box_advertise"><strong class="desc_advertise">[엔카전담] 7일 책임환불</strong></span>  <span class="mywish"><input type="button" value="찜" class="btwish btn_zim _zzim " data-enlog-dt-param="{'filter': '', 'carid': '37257136'}"><input type="button" value="비교" data-enlog-dt-param="{'filter': '', 'carid': '37257136'}" class="btwish btn_vs _compare "></span></span>  <span class="inf"><span class="cls"><strong>현대</strong> <em>싼타페 TM</em></span><span class="dtl"><strong> 디젤 2.2 4WD</strong> <em>익스클루시브</em></span></span> <span class="detail"><span class="yer">18/04식<em>(19년형)</em></span><span class="km">123,511km</span><span class="ipt">디젤</span><span class="lo">경기</span></span> <span class="val"><span class="prc"><strong>2,040</strong>만원</span></span> <span class="encarservice"> <span class="svcMark svcMark1">엔카홈서비스</span>  </span> </a> </li> </ul>
-            </div>
-        </div>
-        """.trimIndent()
+    fun `test 차량 목록 조회`() {
+        driver.get("http://www.encar.com/dc/dc_carsearchlist.do#!")
 
         val vehicles = mutableListOf<Vehicle>()
-        val document = Jsoup.parse(html)
-        println(document)
-        val carElements: Elements = document.select("ul.car_list li")
+        var pageNumber = 1
 
-        for ( element in carElements ) {
-            val make = element.select("span.cls strong").text()
-            val model = element.select("span.cls em").text()
-            val trim = element.select("span.dtl strong").text()
-            val year = element.select("span.yer").text()
-            val mileage = element.select("span.km").text()
-            val fuel = element.select("span.ipt").text()
-            val location = element.select("span.lo").text()
-            val price = element.select("span.prc strong").text()
+        while (true) {
+            WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("ul.car_list li")))
+            WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("tbody#sr_normal tr")))
 
-            val vehicle = Vehicle(make, model, trim, year, mileage, fuel, location, price)
-            vehicles.add(vehicle)
+            val html = driver.pageSource
+            val document: Document = Jsoup.parse(html)
+
+            val carElements: Elements = document.select("ul.car_list li, tbody#sr_normal tr")
+
+            for (element in carElements) {
+                val make = element.select("span.cls strong").text()
+                val model = element.select("span.cls em").text()
+                val trim = element.select("span.dtl strong").text()
+                val year = element.select("span.yer").text()
+                val mileage = element.select("span.km").text()
+                val fuel = element.select("span.ipt").text()
+                val location = element.select("span.lo").text()
+                val price = element.select("span.prc strong").text()
+
+                val vehicle = Vehicle(make, model, trim, year, mileage, fuel, location, price)
+                vehicles.add(vehicle)
+            }
+
+            WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.page")))
+
+            val nextPageElement = if(pageNumber % 10 == 0)
+                driver.findElement(By.cssSelector("span.next a[data-page='${pageNumber + 1}']"))
+            else
+                driver.findElement(By.cssSelector("span.page a[data-page='${pageNumber + 1}']"))
+            nextPageElement.click()
+
+            pageNumber++
+
+            println("현재 페이지: $pageNumber, 차량 수: ${vehicles.size}")
+            Thread.sleep(500)
         }
-        vehicles.forEach {
-            println(it)
-        }
-
+        vehicles.forEach { println(it) }
     }
 }

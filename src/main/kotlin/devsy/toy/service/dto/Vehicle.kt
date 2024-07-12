@@ -1,7 +1,18 @@
 package devsy.toy.service.dto
 
-import devsy.toy.service.constant.VehiclePlatform
 
+data class Vehicle(
+    val make: String,
+    val model: String,
+    val trim: String,
+    val year: String,
+    val mileage: String,
+    val fuel: String,
+    val location: String,
+    val price: String
+)
+/*
+import devsy.toy.service.constant.VehiclePlatform
 data class Vehicle(
     val platform: VehiclePlatform, // 차량이 제공되는 플랫폼 (ENCAR, KCAR 등)
     val manufacturer: String,      // 차량 제조사 (예: 현대, 기아)
@@ -23,3 +34,4 @@ data class Vehicle(
 
     val comments: String?           // 비고
 )
+*/
