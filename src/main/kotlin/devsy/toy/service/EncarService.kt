@@ -10,6 +10,8 @@ import org.jsoup.select.Elements
 import org.openqa.selenium.By
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
+import org.openqa.selenium.support.ui.ExpectedCondition
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import org.springframework.stereotype.Service
@@ -24,20 +26,19 @@ class EncarService(
     //fun getRealtimeVehicleList(): List<Vehicle> {
     fun getRealtimeSearchCondition(): EncarVehicleSearchConditions {
         val doc = seleniumUtil.getDocumentByUrl("https://www.encar.com/dc/dc_carsearchlist.do")
-
         val categoryOpenTag = driver.findElement(By.cssSelector(".schset.category a"))
         categoryOpenTag.click()
+        val wait = WebDriverWait(driver, Duration.ofSeconds(10))
+        wait.until(ExpectedCondition<Boolean> { driver ->
+            val schCategory: WebElement = driver.findElement(By.id("schCategory"))
+            schCategory.getCssValue("display") == "block"
+        })
 
-        WebDriverWait(driver, 10)
-            .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(#schCategory)))
-
-        //println(">>>>>>>>>>> ${doc.text()}")
-        println(">>>>>>>>>" + doc.select(".deparea"))
-        doc.select(".deparea.category .deplist li").map { element ->
-            val id = element.selectFirst("input")?.id()
-            val name = element.selectFirst("label")?.text()
-            println("id = $id")
-            println("name = $name")
+        println(">>>>>>>>>" + driver.findElements(By.cssSelector("#schCategory"))[0] )
+        driver.findElements(By.cssSelector(".deparea.category .deplist li")).map { element ->
+            val id = element.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("id")
+            val labelText = element.findElement(By.cssSelector("label")).text
+            println("ID: $id, Label: $labelText")
         }
 
         return EncarVehicleSearchConditions()

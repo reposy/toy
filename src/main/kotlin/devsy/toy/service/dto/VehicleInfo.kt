@@ -1,9 +1,10 @@
 package devsy.toy.service.dto
 
 
-data class Vehicle(
+data class VehicleInfo(
     val platform: String,
-    
+    val detailUrl: String,
+    val imageUrl: String,
     val make: String,
     val model: String,
     val trim: String,
