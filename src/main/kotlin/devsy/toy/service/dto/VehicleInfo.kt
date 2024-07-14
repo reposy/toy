@@ -2,6 +2,8 @@ package devsy.toy.service.dto
 
 
 data class Vehicle(
+    val platform: String,
+    
     val make: String,
     val model: String,
     val trim: String,
