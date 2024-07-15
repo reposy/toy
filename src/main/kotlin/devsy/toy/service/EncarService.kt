@@ -25,16 +25,14 @@ class EncarService(
 ) {
     //fun getRealtimeVehicleList(): List<Vehicle> {
     fun getRealtimeSearchCondition(): EncarVehicleSearchConditions {
-        val doc = seleniumUtil.getDocumentByUrl("https://www.encar.com/dc/dc_carsearchlist.do")
-        val categoryOpenTag = driver.findElement(By.cssSelector(".schset.category a"))
-        categoryOpenTag.click()
+        driver.get("https://www.encar.com/dc/dc_carsearchlist.do")
         val wait = WebDriverWait(driver, Duration.ofSeconds(10))
-        wait.until(ExpectedCondition<Boolean> { driver ->
-            val schCategory: WebElement = driver.findElement(By.id("schCategory"))
-            schCategory.getCssValue("display") == "block"
-        })
 
-        println(">>>>>>>>>" + driver.findElements(By.cssSelector("#schCategory"))[0] )
+        val categoryOpenTag = wait
+            .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".schset.category a")))
+        categoryOpenTag.click()
+
+        //println(">>>>>>>>>" + driver.findElements(By.cssSelector("#schCategory"))[0] )
         driver.findElements(By.cssSelector(".deparea.category .deplist li")).map { element ->
             val id = element.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("id")
             val labelText = element.findElement(By.cssSelector("label")).text
