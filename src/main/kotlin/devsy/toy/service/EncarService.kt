@@ -3,6 +3,7 @@ package devsy.toy.service
 import devsy.toy.service.dto.VehicleInfo
 import devsy.toy.service.dto.encar.Category
 import devsy.toy.service.dto.encar.EncarVehicleSearchConditions
+import devsy.toy.service.dto.encar.ModelStep
 import devsy.toy.util.SeleniumUtil
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -28,19 +29,39 @@ class EncarService(
         driver.get("https://www.encar.com/dc/dc_carsearchlist.do")
         val wait = WebDriverWait(driver, Duration.ofSeconds(10))
 
+        /*
         val categoryOpenTag = wait
             .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".schset.category a")))
         categoryOpenTag.click()
 
-        //println(">>>>>>>>>" + driver.findElements(By.cssSelector("#schCategory"))[0] )
         driver.findElements(By.cssSelector(".deparea.category .deplist li")).map { element ->
             val id = element.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("id")
             val labelText = element.findElement(By.cssSelector("label")).text
             println("ID: $id, Label: $labelText")
         }
 
+         */
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#stepManufact dd")))
+        var tempId = 0
+        val modelSteps = driver.findElements(By.cssSelector("#stepManufact dd"))
+            .map { element ->
+            val id = "step_${tempId++}"
+            val aTag = element.findElement(By.cssSelector("a"))
+            val name = aTag.text
+            ModelStep(id, name)
+        }
+
+        modelSteps.forEach {
+            println(it)
+        }
+
+        //println(">>>>>>>>>" + driver.findElements(By.cssSelector("#schCategory"))[0] )
+
         return EncarVehicleSearchConditions()
     }
+
+
 
     // 엔카 차량 조회 화면 첫 페이지부터 마지막 페이지까지 순회하며, 전체 차량 정보 목록 리턴
     fun getRealtimeTotalVehicleList(): List<VehicleInfo> {
