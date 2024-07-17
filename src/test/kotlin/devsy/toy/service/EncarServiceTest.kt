@@ -17,7 +17,7 @@ class EncarServiceTest(
 ) {
     @Test
     fun `test 차량 옵션 목록 조회`() {
-        encarService.getRealtimeSearchCondition()
+        encarService.getRealtimeSearchConditions()
     }
     @Test
     fun `test 차량 목록 조회`() {

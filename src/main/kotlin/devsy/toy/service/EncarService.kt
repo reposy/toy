@@ -27,34 +27,29 @@ class EncarService(
     //fun getRealtimeVehicleList(): List<Vehicle> {
     fun getRealtimeSearchCondition(): EncarVehicleSearchConditions {
         driver.get("https://www.encar.com/dc/dc_carsearchlist.do")
+
         val wait = WebDriverWait(driver, Duration.ofSeconds(10))
 
-        /*
         val categoryOpenTag = wait
             .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".schset.category a")))
         categoryOpenTag.click()
 
         driver.findElements(By.cssSelector(".deparea.category .deplist li")).map { element ->
-            val id = element.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("id")
             val labelText = element.findElement(By.cssSelector("label")).text
-            println("ID: $id, Label: $labelText")
+            Category(".deparea.category .deplist li label", labelText)
         }
-
-         */
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#stepManufact dd")))
         var tempId = 0
-        val modelSteps = driver.findElements(By.cssSelector("#stepManufact dd"))
+
+        val modelSteps = Jsoup.parse(driver.pageSource).select("#stepManufact dd")
             .map { element ->
-            val id = "step_${tempId++}"
-            val aTag = element.findElement(By.cssSelector("a"))
-            val name = aTag.text
-            ModelStep(id, name)
+            val name = element.selectFirst("a")?.text()
+            ModelStep("#stepManufact dd a", name?: "")
         }
 
-        modelSteps.forEach {
-            println(it)
-        }
+
+        modelSteps.joinToString("\n")
 
         //println(">>>>>>>>>" + driver.findElements(By.cssSelector("#schCategory"))[0] )
 
