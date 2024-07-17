@@ -25,7 +25,7 @@ class EncarService(
 
 ) {
     //fun getRealtimeVehicleList(): List<Vehicle> {
-    fun getRealtimeSearchCondition(): EncarVehicleSearchConditions {
+    fun getRealtimeSearchConditions(): EncarVehicleSearchConditions {
         driver.get("https://www.encar.com/dc/dc_carsearchlist.do")
 
         val wait = WebDriverWait(driver, Duration.ofSeconds(10))

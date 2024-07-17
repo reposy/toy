@@ -1,27 +1,29 @@
 package devsy.toy.service.dto.encar
 
-data class Category(var id: String = "", var Name: String = "") // 차종
-data class ModelStep(var id: String = "", var name: String = "") // 제조사/모델/등급
+import org.openqa.selenium.WebElement
+
+data class Category(val path: String, val Name: String = "") // 차종
+data class ModelStep(val path: String, val name: String = "") // 제조사/모델/등급
 data class YearArea(
-    var minYearId: String = "", var minYear: String = "2014", // minYear // 연식
-    var minMonthId: String = "", var minMonth: String = "01", // minMonth
-    var maxYearId: String = "", var maxYear: String = "2024", // maxYear
-    var maxMonthId: String = "", var maxMonth: String = "12") // maxMonth
+    val minYearId: String = "", val minYear: String = "2014", // minYear // 연식
+    val minMonthId: String = "", val minMonth: String = "01", // minMonth
+    val maxYearId: String = "", val maxYear: String = "2024", // maxYear
+    val maxMonthId: String = "", val maxMonth: String = "12") // maxMonth
 data class DistanceArea(
-    var minDistanceId: String = "", var minDistance: String = "0",
-    var maxDistanceId: String = "", var maxDistance: String = "300000") // 주행거리
+    val minDistanceId: String = "", val minDistance: String = "0",
+    val maxDistanceId: String = "", val maxDistance: String = "300000") // 주행거리
 data class PriceArea(
-    var minPriceId: String = "", var minPrice: String = "0",
-    var maxPriceId: String = "", var maxPrice: String = "100000000",) // 가격
-data class Warranty(var id: String = "", var name: String = "") // 엔카 서비스
-data class Location(var id: String = "", var name: String = "") // 지역
-data class Performance(var id: String = "", var name: String = "") // 성능/보험공개
-data class SellerType(var id: String = "", var name: String = "") // 판매자 유형
-data class BuyType(var id: String = "", var name: String = "") // 판매 방식
-data class Color(var id: String = "", var name: String = "") // 색상
-data class FuelType(var id: String = "", var name: String = "") // 연료
-data class Mission(var id: String = "", var name: String = "") // 변속기
-data class Option(var id: String = "", var name: String = "") // 옵션
+    val minPriceId: String = "", val minPrice: String = "0",
+    val maxPriceId: String = "", val maxPrice: String = "100000000",) // 가격
+data class Warranty(val id: String = "", val name: String = "") // 엔카 서비스
+data class Location(val id: String = "", val name: String = "") // 지역
+data class Performance(val id: String = "", val name: String = "") // 성능/보험공개
+data class SellerType(val id: String = "", val name: String = "") // 판매자 유형
+data class BuyType(val id: String = "", val name: String = "") // 판매 방식
+data class Color(val id: String = "", val name: String = "") // 색상
+data class FuelType(val id: String = "", val name: String = "") // 연료
+data class Mission(val id: String = "", val name: String = "") // 변속기
+data class Option(val id: String = "", val name: String = "") // 옵션
 
 data class EncarVehicleSearchConditions (
     val carTypes: List<Category> = mutableListOf(), // 차종
