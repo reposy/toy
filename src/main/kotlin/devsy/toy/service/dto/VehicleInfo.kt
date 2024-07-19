@@ -1,5 +1,7 @@
 package devsy.toy.service.dto
 
+import java.io.Serializable
+
 
 data class VehicleInfo(
     val platform: String,
@@ -13,7 +15,7 @@ data class VehicleInfo(
     val fuel: String,
     val location: String,
     val price: String
-)
+): Serializable
 /*
 import devsy.toy.service.constant.VehiclePlatform
 data class Vehicle(
