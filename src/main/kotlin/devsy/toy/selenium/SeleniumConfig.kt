@@ -6,10 +6,12 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeDriverService
 import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.support.ui.WebDriverWait
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.io.File
 import java.net.Socket
+import java.time.Duration
 
 @Configuration
 class SeleniumConfig {
@@ -46,6 +48,11 @@ class SeleniumConfig {
         }
     }
 
+
+    @Bean
+    fun wait(driver: WebDriver): WebDriverWait {
+        return WebDriverWait(driver, Duration.ofSeconds(10))
+    }
 
 
     @Bean

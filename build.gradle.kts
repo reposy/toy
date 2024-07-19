@@ -20,6 +20,8 @@ repositories {
 
 dependencies {
 
+    implementation("org.iq80.leveldb:leveldb:0.12")
+
     implementation ("org.seleniumhq.selenium:selenium-java:4.22.0")
 
     implementation("org.jsoup:jsoup:1.17.2")
