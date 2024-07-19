@@ -41,12 +41,16 @@ class EncarService(
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("ul.car_list li")))
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("tbody#sr_normal tr")))
 
-            val html = driver.pageSource
-            document = Jsoup.parse(html)
-
-            val carElements: Elements = document.select("ul.car_list li, tbody#sr_normal tr")
-
-            for (element in carElements) {
+            /*
+            // 요소 개수가 20개 이상이 될 때까지 기다리기
+            wait.until { driver: WebDriver ->
+                driver.findElements(By.cssSelector("tbody#sr_normal tr span.prc")).size > 20
+            }
+            
+             */
+            val document = Jsoup.parse(driver.pageSource)
+            //val carElements: Elements = document.select("ul.car_list li, tbody#sr_normal tr")
+            for (element in document.select("ul.car_list li")) {
                 val platform = "ENCAR"
                 val detailUrl = element.select("a").map { it.attr("href") }.firstOrNull()?:""
                 val imageUrl = element.select("span.img img").map { it.attr("src") }.firstOrNull()?:""
@@ -65,11 +69,30 @@ class EncarService(
                 println(vehicleInfo)
             }
 
+            for (element in document.select("tbody#sr_normal tr")) {
+                val platform = "ENCAR"
+                val detailUrl = element.select("a").map { it.attr("href") }.firstOrNull()?:""
+                val imageUrl = element.select("span.img img").map { it.attr("src") }.firstOrNull()?:""
+                val make = element.select("span.cls strong").text()
+                val model = element.select("span.cls em").text()
+                val trim = element.select("span.dtl strong").text()
+                val year = element.select("span.yer").text()
+                val mileage = element.select("span.km").text()
+                val fuel = element.select("span.ipt").text()
+                val location = element.select("td.inf span.loc").text()
+                val price = element.select("td.prc_hs strong").text()
+
+                val vehicleInfo = VehicleInfo(platform, detailUrl, imageUrl, make, model, trim, year, mileage, fuel, location, price)
+                lvRepo.addToList("vehicleInfoList", vehicleInfo)
+                vehicleInfos.add(vehicleInfo)
+                println(vehicleInfo)
+            }
+
 
             /*
             val vehicleInfoList: MutableList<VehicleInfo> = lvRepo.get("vehicleInfoList") ?: mutableListOf()
             if ( vehicleInfoList.size > 1000 ) {
-                println(">>>>>> 차량정보 개수: ${vehicleInfoList.size}")     
+                println(">>>>>> 차량정보 개수: ${vehicleInfoList.size}")
                 break
             }
             */
