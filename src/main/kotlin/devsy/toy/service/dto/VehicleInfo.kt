@@ -1,5 +1,8 @@
 package devsy.toy.service.dto
 
+import org.jsoup.nodes.Element
+import org.openqa.selenium.By
+import org.openqa.selenium.WebElement
 import java.io.Serializable
 
 
@@ -15,7 +18,21 @@ data class VehicleInfo(
     val fuel: String,
     val location: String,
     val price: String
-): Serializable
+): Serializable {
+    constructor(platform: String, element: Element) : this(
+        platform = platform,
+        detailUrl = element.select("a").map { it.attr("href") }.firstOrNull()?:"",
+        imageUrl = element.select("span.img span.ass").map { it.attr("src") }.firstOrNull()?:"",
+        make = element.select("span.cls strong").text(),
+        model = element.select("span.cls em").text(),
+        trim = element.select("span.dtl strong").text(),
+        year = element.select("span.yer").text(),
+        mileage = element.select("span.km").text(),
+        fuel = element.select("span.ipt").text(),
+        location = element.select("span.lo").text(),
+        price = element.select("span.prc strong").text(),
+    )
+}
 /*
 import devsy.toy.service.constant.VehiclePlatform
 data class Vehicle(

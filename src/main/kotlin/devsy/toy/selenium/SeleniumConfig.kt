@@ -73,9 +73,9 @@ class SeleniumConfig {
         chromeOptions.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.127 Safari/537.36")
         chromeOptions.addArguments("--remote-debugging-port=9222")
         chromeOptions.addArguments("--user-data-dir=/tmp/chrome_debug")
-        //chromeOptions.addArguments("--load-extension=/Users/hsykys0728/Library/Application Support/Google/Chrome/Default/Extensions/mpbjkejclgfgadiemmefgebjfooflfhl/3.1.0_0")
+        chromeOptions.addArguments("--load-extension=/Users/hsykys0728/Library/Application Support/Google/Chrome/Default/Extensions/mpbjkejclgfgadiemmefgebjfooflfhl/3.1.0_0")
         //chromeOptions.addArguments("--load-extension=/src/main/3.1.0_0")
-        // chromeOptions.addArguments("--headless")
+        chromeOptions.addArguments("--headless")
         return chromeOptions
     }
 
