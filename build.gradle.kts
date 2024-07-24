@@ -20,6 +20,13 @@ repositories {
 
 dependencies {
 
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.3.2")
+    implementation("org.xerial:sqlite-jdbc:3.46.0.0")
+    runtimeOnly("org.hibernate.orm:hibernate-core:6.2.3.Final")
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
     implementation("org.iq80.leveldb:leveldb:0.12")
 
     implementation ("org.seleniumhq.selenium:selenium-java:4.22.0")
