@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting Page</title>
+</head>
+<body>
+<h1>Vote for your favorite option</h1>
+<form action="/vote" method="post">
+    <label>
+        <input type="radio" name="option" value="Option1"> Option 1
+    </label>
+    <label>
+        <input type="radio" name="option" value="Option2"> Option 2
+    </label>
+    <label>
+        <input type="radio" name="option" value="Option3"> Option 3
+    </label>
+    <button type="submit">Vote</button>
+</form>
+
+<h2>Current Votes</h2>
+<ul>
+    <li th:each="entry : ${votes}">
+        <span th:text="${entry.key}"></span>: <span th:text="${entry.value}"></span>
+    </li>
+</ul>
+</body>
+</html>

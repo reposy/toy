@@ -1,3 +1,5 @@
+leveldb/*
+
 HELP.md
 .gradle
 build/

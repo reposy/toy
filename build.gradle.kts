@@ -22,6 +22,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.3.2")
     implementation("org.xerial:sqlite-jdbc:3.46.0.0")
+    implementation("org.hibernate.orm:hibernate-community-dialects:6.5.2.Final")
     runtimeOnly("org.hibernate.orm:hibernate-core:6.2.3.Final")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
