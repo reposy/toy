@@ -19,18 +19,17 @@ class EncarServiceTest(
     @BeforeEach
     fun setUp() {
         lvRepo.put("vehicleInfoList", ArrayList<VehicleInfo>())
-
     }
     @Test
     fun `test getEncarVehicleList`() {
-        val vehicleInfoList: MutableList<VehicleInfo> = lvRepo.get("vehicleInfoList") ?: mutableListOf()
-        println(">>>>>>>" + vehicleInfoList.size)
-        if(vehicleInfoList.size > 1000) {
-            vehicleInfoList.forEach {
-                println("${it.platform}) make= ${it.make}, model= ${it.model}, year=${it.year}, mileage=${it.mileage}, fuel=${it.fuel}, location=${it.location}, price=${it.price}만원")
-            }
-            return
-        }
+//        val vehicleInfoList: MutableList<VehicleInfo> = lvRepo.get("vehicleInfoList") ?: mutableListOf()
+//        println(">>>>>>>" + vehicleInfoList.size)
+//        if(vehicleInfoList.size > 1000) {
+//            vehicleInfoList.forEach {
+//                println("${it.platform}) make= ${it.make}, model= ${it.model}, year=${it.year}, mileage=${it.mileage}, fuel=${it.fuel}, location=${it.location}, price=${it.price}만원")
+//            }
+//            return
+//        }
         encarService.getEncarVehicleList()
     }
     @Test

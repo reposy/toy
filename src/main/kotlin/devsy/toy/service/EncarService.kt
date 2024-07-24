@@ -29,6 +29,7 @@ class EncarService(
 
     // 엔카 홈페이지를 순회하며 levelDB에 적재한다.
     fun getEncarVehicleList() {
+        driver.get("https://www.encar.com/dc/dc_carsearchlist.do")
 
         var document: Document
 
@@ -50,39 +51,23 @@ class EncarService(
              */
             val document = Jsoup.parse(driver.pageSource)
             //val carElements: Elements = document.select("ul.car_list li, tbody#sr_normal tr")
-            for (element in document.select("ul.car_list li")) {
-                val platform = "ENCAR"
-                val detailUrl = element.select("a").map { it.attr("href") }.firstOrNull()?:""
-                val imageUrl = element.select("span.img img").map { it.attr("src") }.firstOrNull()?:""
-                val make = element.select("span.cls strong").text()
-                val model = element.select("span.cls em").text()
-                val trim = element.select("span.dtl strong").text()
-                val year = element.select("span.yer").text()
-                val mileage = element.select("span.km").text()
-                val fuel = element.select("span.ipt").text()
-                val location = element.select("span.lo").text()
-                val price = element.select("span.prc strong").text()
+            for (element in document.select("div.part ul.car_list li")) {
 
-                val vehicleInfo = VehicleInfo(platform, detailUrl, imageUrl, make, model, trim, year, mileage, fuel, location, price)
+                val vehicleInfo = VehicleInfo("ENCAR", element)
+                lvRepo.addToList("vehicleInfoList", vehicleInfo)
+                vehicleInfos.add(vehicleInfo)
+                println(vehicleInfo)
+            }
+
+            for (element in document.select("div.section ul.car_list li")) {
+                val vehicleInfo = VehicleInfo("ENCAR", element)
                 lvRepo.addToList("vehicleInfoList", vehicleInfo)
                 vehicleInfos.add(vehicleInfo)
                 println(vehicleInfo)
             }
 
             for (element in document.select("tbody#sr_normal tr")) {
-                val platform = "ENCAR"
-                val detailUrl = element.select("a").map { it.attr("href") }.firstOrNull()?:""
-                val imageUrl = element.select("span.img img").map { it.attr("src") }.firstOrNull()?:""
-                val make = element.select("span.cls strong").text()
-                val model = element.select("span.cls em").text()
-                val trim = element.select("span.dtl strong").text()
-                val year = element.select("span.yer").text()
-                val mileage = element.select("span.km").text()
-                val fuel = element.select("span.ipt").text()
-                val location = element.select("td.inf span.loc").text()
-                val price = element.select("td.prc_hs strong").text()
-
-                val vehicleInfo = VehicleInfo(platform, detailUrl, imageUrl, make, model, trim, year, mileage, fuel, location, price)
+                val vehicleInfo = VehicleInfo("ENCAR", element)
                 lvRepo.addToList("vehicleInfoList", vehicleInfo)
                 vehicleInfos.add(vehicleInfo)
                 println(vehicleInfo)
@@ -96,7 +81,7 @@ class EncarService(
                 break
             }
             */
-            break;
+            break
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.page")))
 
