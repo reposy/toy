@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Form</title>
+</head>
+<body>
+<h1>Upload Files and Texts</h1>
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="text" name="components" placeholder="Text 1" /><br />
+    <input type="file" name="components" /><br />
+    <input type="text" name="components" placeholder="Text 2" /><br />
+    <input type="file" name="components" /><br />
+    <input type="text" name="components" placeholder="Text 3" /><br />
+    <input type="file" name="components" /><br />
+    <input type="text" name="components" placeholder="Text 4" /><br />
+    <input type="text" name="components" placeholder="Text 5" /><br />
+    <button type="button" onclick="uploadFiles()">Upload</button>
+</form>
+
+<script>
+    function uploadFiles() {
+        const formData = new FormData(document.getElementById('uploadForm'));
+
+        fetch('/', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.text()).then(data => alert(data));
+    }
+</script>
+</body>
+</html>
