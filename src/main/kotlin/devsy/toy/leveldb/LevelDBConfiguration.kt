@@ -15,7 +15,8 @@ class LevelDBConfiguartion {
         val options = Options().apply {
             createIfMissing(true)
         }
-        val dbFile = File("leveldb")
+        val projectRootPath = System.getProperty("user.dir")
+        val dbFile = File(projectRootPath, "leveldb")
         if(!dbFile.exists())
             dbFile.mkdir()
         return factory.open(dbFile, options)
